@@ -1,0 +1,8 @@
+mathlens-env/
+data/raw/
+data/sections/
+data/augmented/
+data/embeddings/
+__pycache__/
+*.pyc
+.DS_Store
