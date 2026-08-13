@@ -9,10 +9,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def deskew_image(image, max_angle=30.0):
+    """Deskew the image using OpenCV."""
+    # Convert image to white text on black background and dilate each line to rectangular box for better contour detection
     thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (150, 15))
     dilate = cv2.dilate(thresh, kernel)
 
+    # find contours and obtain the set the angle of rotation as the median angle of the bounding boxes
     contours, _ = cv2.findContours(dilate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     angles = []
     for contour in contours:
@@ -40,8 +43,7 @@ def deskew_image(image, max_angle=30.0):
 
 def normalize_brightness_contrast(image: np.ndarray) -> np.ndarray:
     """
-    Normalize brightness/contrast to neutralize blue/yellow tint and 
-    lighting differences between photos taken at different times of day.
+    Normalize brightness/contrast to neutralize blue/yellow tint and lighting differences between photos taken at different times of day.
     """
     clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(4, 4))
     normalized = clahe.apply(image)
@@ -58,7 +60,7 @@ def preprocess_image(image: np.ndarray) -> np.ndarray:
     Preprocess the image for better OCR results.
     Steps:
     1. Convert to grayscale
-    2. Blur the image to increase smoothness
+    2. Blur the image to increase stroke smoothness
     3. Deskew the image
     4. Normalize brightness and contrast
     5. Denoise the image
@@ -72,6 +74,7 @@ def preprocess_image(image: np.ndarray) -> np.ndarray:
 
  
 def iter_input_images(input_path: Path):
+    """Return all valid image files in the input path."""
     if input_path.is_file():
         if input_path.suffix.lower() in VALID_PIC:
             yield input_path
@@ -82,6 +85,7 @@ def iter_input_images(input_path: Path):
 
 
 def process_one_image(input_path: Path, output_dir: Path) -> Path:
+    """Process one image and save the result to the output directory."""
     image = cv2.imread(str(input_path))
     processed = preprocess_image(image)
 
