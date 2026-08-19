@@ -103,8 +103,6 @@ def main():
         return
     for image in iter_input_images(input_path):
         output_image = process_one_image(image, output_dir)
-        print(f"Processed {image.name} -> {output_image}")
-
 
 
 if __name__ == "__main__":

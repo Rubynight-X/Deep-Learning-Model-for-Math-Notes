@@ -1,0 +1,176 @@
+section_id,subject,page,section,topic,cluster,hard_negative,set
+calc_p1_s1,calculus,1,1,supremum_infimum,bounds_unboundness,,train
+calc_p1_s2,calculus,1,2,supremum_infimum,bounds_unboundness,,train
+calc_p1_s3,calculus,1,3,supremum_infimum,bounds_unboundness,,train
+calc_p1_s4,calculus,1,4,n_unbounded,bounds_unboundness,,train
+calc_p1_s5,calculus,1,5,archimedean_property,bounds_unboundness,,train
+calc_p1_s6,calculus,1,6,function,functions,,train
+calc_p2_s1,calculus,2,1,sequence_limit,sequences,,train
+calc_p2_s2,calculus,2,2,sequence_limit,sequences,,train
+calc_p2_s3,calculus,2,3,boundedness_convergence,sequences,,train
+calc_p3_s1,calculus,3,1,boundedness_convergence,sequences,,eval
+calc_p3_s2,calculus,3,2,sequence_limit,sequences,,eval
+calc_p3_s3,calculus,3,3,boundedness_convergence,sequences,,eval
+calc_p4_s1,calculus,4,1,continuity_definition,continuity,,train
+calc_p4_s2,calculus,4,2,continuity_definition,continuity,,train
+calc_p4_s3,calculus,4,3,continuity_example,continuity,,train
+calc_p4_s4,calculus,4,4,continuity_example,continuity,,train
+calc_p4_s5,calculus,4,5,continuity_example,continuity,,eval
+calc_p4_s6,calculus,4,6,continuity_properties,continuity,,train
+calc_p5_s1,calculus,5,1,differentiation_definition,differentiation,,train
+calc_p5_s2,calculus,5,2,differentiation_properties,differentiation,,train
+calc_p5_s3,calculus,5,3,differentiation_example,differentiation,,train
+calc_p5_s4,calculus,5,4,differentiation_example,differentiation,,eval
+calc_p5_s5,calculus,5,5,differentiation_example,differentiation,,train
+calc_p6_s1,calculus,6,1,differentiation_definition,differentiation,,train
+calc_p6_s2,calculus,6,2,differentiation_definition,differentiation,,train
+calc_p6_s3,calculus,6,3,differentiation_properties,differentiation,,train
+calc_p6_s4,calculus,6,4,local_extrema_necessary,extrema,,train
+calc_p7_s1,calculus,7,1,differentiation_properties,differentiation,,train
+calc_p7_s2,calculus,7,2,differentiation_example,differentiation,,train
+calc_p7_s3,calculus,7,3,mean_value_theorem,mean_value_theorems,"differentiation_definition, differentiation_properties",eval
+calc_p7_s4,calculus,7,4,mvt_consequences,mean_value_theorems,"differentiation_definition, differentiation_properties",train
+calc_p7_s5,calculus,7,5,mvt_consequences,mean_value_theorems,"differentiation_definition, differentiation_properties",train
+calc_p8_s1,calculus,8,1,local_extrema_sufficient,extrema,,train
+calc_p8_s2,calculus,8,2,local_extrema_sufficient,extrema,,train
+calc_p8_s3,calculus,8,3,local_extrema_example,extrema,,train
+calc_p8_s4,calculus,8,4,local_extrema_necessary,extrema,,eval
+calc_p8_s5,calculus,8,5,local_extrema_definition,extrema,,train
+calc_p9_s1,calculus,9,1,series_definition,series,,train
+calc_p9_s2,calculus,9,2,series_definition,series,,train
+calc_p9_s3,calculus,9,3,series_convergence,series,,train
+calc_p9_s4,calculus,9,4,geometric_series,series,,train
+calc_p9_s5,calculus,9,5,geometric_series,series,,train
+calc_p10_s1,calculus,10,1,geometric_series,series,,train
+calc_p10_s2,calculus,10,2,vanishing_theorem,series,lower_upper_integral,train
+calc_p10_s3,calculus,10,3,non_negative_series,series,lower_upper_integral,train
+calc_p10_s4,calculus,10,4,non_negative_series,series,lower_upper_integral,train
+calc_p10_s5,calculus,10,5,non_negative_series,series,lower_upper_integral,train
+calc_p11_s1,calculus,11,1,series_example,series,,eval
+calc_p11_s2,calculus,11,2,series_example,series,,eval
+calc_p11_s3,calculus,11,3,series_abs_convergence,series,lower_upper_integral,train
+calc_p11_s4,calculus,11,4,series_abs_convergence,series,lower_upper_integral,train
+calc_p11_s5,calculus,11,5,series_cond_convergence,series,lower_upper_integral,eval
+calc_p11_s6,calculus,11,6,series_cond_convergence,series,lower_upper_integral,eval
+calc_p12_s1,calculus,12,1,riemann_integrability_intuition,integration,,train
+calc_p12_s2,calculus,12,2,integration_properties,integration,,train
+calc_p12_s3,calculus,12,3,riemann_integrability_intuition,integration,,train
+calc_p13_s1,calculus,13,1,cauchy_sequence,series,,train
+calc_p13_s2,calculus,13,2,series_convergence,series,,train
+calc_p13_s3,calculus,13,3,cauchy_criteria,series,,train
+calc_p13_s4,calculus,13,4,vanishing_theorem,series,,train
+calc_p13_s5,calculus,13,5,boundedness_theorem,series,,train
+calc_p13_s6,calculus,13,6,comparison_test,series,,train
+calc_p14_s1,calculus,14,1,lower_upper_integral,integration,"integral_remainder_form, integral_remainder_example",train
+calc_p14_s2,calculus,14,2,lower_upper_integral,integration,"integral_remainder_form, integral_remainder_example",train
+calc_p14_s3,calculus,14,3,riemann_integrability,integration,"integral_remainder_form, integral_remainder_example",train
+calc_p15_s1,calculus,15,1,fundemental_theorem_of_calc,integration,,train
+calc_p15_s2,calculus,15,2,ftc_example,integration,,train
+calc_p16_s1,calculus,16,1,fundemental_theorem_of_calc,integration,,eval
+calc_p16_s2,calculus,16,2,ftc_example,integration,,eval
+calc_p16_s3,calculus,16,3,fundemental_theorem_of_calc,integration,,eval
+calc_p17_s1,calculus,17,1,taylor_polynomial_example,taylor_polynomial,,train
+calc_p17_s2,calculus,17,2,taylor_polynomial,taylor_polynomial,,train
+calc_p17_s3,calculus,17,3,big_small_o_definition,taylor_polynomial,,train
+calc_p17_s4,calculus,17,4,taylor_polynomial,taylor_polynomial,,train
+calc_p17_s5,calculus,17,5,taylor_polynomial_example,taylor_polynomial,,eval
+calc_p18_s1,calculus,18,1,taylor_polynomial,taylor_polynomial,,eval
+calc_p18_s2,calculus,18,2,taylor_polynomial_example,taylor_polynomial,,train
+calc_p18_s3,calculus,18,3,integral_remainder_form,taylor_polynomial,"riemman_integrability, lower_upper_integral",train
+calc_p18_s4,calculus,18,4,integral_remainder_example,taylor_polynomial,"riemman_integrability, lower_upper_integral",train
+calc_p18_s5,calculus,18,5,integral_remainder_form,taylor_polynomial,"riemman_integrability, lower_upper_integral",train
+calc_p19_s1,calculus,19,1,extreme_value_theorem,mean_value_theorems,,train
+calc_p19_s2,calculus,19,2,extreme_value_theorem,mean_value_theorems,,train
+calc_p20_s1,calculus,20,1,local_extrema_necessary,extrema,,eval
+calc_p20_s2,calculus,20,2,rolles_theorem,mean_value_theorems,"differentiation_definition, differentiation_properties",train
+calc_p21_s1,calculus,21,1,rolles_theorem,mean_value_theorems,"differentiation_definition, differentiation_properties",train
+calc_p21_s2,calculus,21,2,mean_value_theorem,mean_value_theorems,"differentiation_definition, differentiation_properties",train
+la_p1_s1,linear_algebra,1,1,span_definition,span,,train
+la_p1_s2,linear_algebra,1,2,span_example,span,,train
+la_p1_s3,linear_algebra,1,3,span_example,span,,train
+la_p1_s4,linear_algebra,1,4,span_theorem,span,,train
+la_p1_s5,linear_algebra,1,5,span_example,span,,train
+la_p2_s1,linear_algebra,2,1,linear_independence_definition,linear_independence,,train
+la_p2_s2,linear_algebra,2,2,linear_independence_example,linear_independence,,train
+la_p2_s3,linear_algebra,2,3,linear_independence_definition,linear_independence,,train
+la_p2_s4,linear_algebra,2,4,linear_independence_example,linear_independence,,train
+la_p3_s1,linear_algebra,3,1,basis_definition,basis,,train
+la_p3_s2,linear_algebra,3,2,basis_example,basis,,train
+la_p3_s3,linear_algebra,3,3,basis_example,basis,,train
+la_p3_s4,linear_algebra,3,4,basis_theorem,basis,,train
+la_p4_s1,linear_algebra,4,1,rank_nullity_corollaries,rank_nullity,,eval
+la_p5_s1,linear_algebra,5,1,basis_example,basis,,train
+la_p5_s2,linear_algebra,5,2,dimension_definition,dimension,,train
+la_p5_s3,linear_algebra,5,3,dimension_example,dimension,,train
+la_p6_s1,linear_algebra,6,1,linear_transformation_definition,linear_transformation,,train
+la_p6_s2,linear_algebra,6,2,linear_transformation_properties,linear_transformation,,eval
+la_p6_s3,linear_algebra,6,3,linear_transformation_example,linear_transformation,,train
+la_p7_s1,linear_algebra,7,1,rank_nullity,rank_nullity,,train
+la_p7_s2,linear_algebra,7,2,rank_nullity,rank_nullity,,train
+la_p7_s3,linear_algebra,7,3,rank_nullity_proof,rank_nullity,,train
+la_p8_s1,linear_algebra,8,1,linear_transformation_properties,linear_transformation,,train
+la_p8_s2,linear_algebra,8,2,matrix_multiplication,matrix_multiplication,,train
+la_p8_s3,linear_algebra,8,3,matrix_multiplication_example,matrix_multiplication,,train
+la_p8_s4,linear_algebra,8,4,matrix_multiplication,matrix_multiplication,,train
+la_p9_s1,linear_algebra,9,1,change_of_basis_definition,change_of_basis,,train
+la_p9_s2,linear_algebra,9,2,change_of_basis_example,change_of_basis,,train
+la_p9_s3,linear_algebra,9,3,change_of_basis_properties,change_of_basis,,train
+la_p9_s4,linear_algebra,9,4,change_of_basis_properties,change_of_basis,,eval
+la_p9_s5,linear_algebra,9,5,change_of_basis_example,change_of_basis,,train
+la_p10_s1,linear_algebra,10,1,similar_matrices,diagonalizability,,train
+la_p10_s2,linear_algebra,10,2,diagonal_matrix,diagonalizability,,train
+la_p10_s3,linear_algebra,10,3,diagonalizability,diagonalizability,,train
+la_p10_s4,linear_algebra,10,4,eigenvector,eigenvector,,train
+la_p10_s5,linear_algebra,10,5,eigenvector,eigenvector,,eval
+la_p10_s6,linear_algebra,10,6,eigenvector,eigenvector,,train
+la_p11_s1,linear_algebra,11,1,diagonalizability,diagonalizability,,train
+la_p11_s2,linear_algebra,11,2,diagonalizability_example,diagonalizability,,train
+la_p11_s3,linear_algebra,11,3,diagonalizability_example,diagonalizability,,eval
+la_p11_s4,linear_algebra,11,4,polynomial_split,diagonalizability,,train
+la_p11_s5,linear_algebra,11,5,polynomial_split,diagonalizability,,eval
+la_p11_s6,linear_algebra,11,6,eigenspace,eigenvector,,train
+la_p12_s1,linear_algebra,12,1,complex_number_properties,complex_ips,,train
+la_p12_s2,linear_algebra,12,2,complex_dot_product,complex_ips,,train
+la_p12_s3,linear_algebra,12,3,complex_inner_product_space,complex_ips,,train
+la_p13_s1,linear_algebra,13,1,complex_ips_norm,complex_ips,,train
+la_p13_s2,linear_algebra,13,2,complex_ips_norm,complex_ips,,train
+la_p13_s3,linear_algebra,13,3,complex_ips_examples,complex_ips,,train
+la_p13_s4,linear_algebra,13,4,orthogonal_definition,orthogonal,,train
+la_p13_s5,linear_algebra,13,5,orthogonal_properties,orthogonal,,train
+la_p13_s6,linear_algebra,13,6,cauchy_schwarz_theorem,orthogonal,,train
+la_p14_s1,linear_algebra,14,1,unit_vector,unit_vector,,train
+la_p14_s2,linear_algebra,14,2,kronecker_delta,orthogonal,,train
+la_p14_s3,linear_algebra,14,3,unit_vector,unit_vector,,train
+la_p14_s4,linear_algebra,14,4,orthogonal_properties,orthogonal,,train
+la_p14_s5,linear_algebra,14,5,orthonormal_basis,orthogonal,,train
+la_p14_s6,linear_algebra,14,6,orthonormal_basis,orthogonal,,eval
+la_p15_s1,linear_algebra,15,1,orthogonal_complement,orthogonal,,train
+la_p15_s2,linear_algebra,15,2,orthogonal_complement_example,orthogonal,,train
+la_p15_s3,linear_algebra,15,3,orthogonal_complement_example,orthogonal,,eval
+la_p15_s4,linear_algebra,15,4,orthogonal_complement_example,orthogonal,,eval
+la_p15_s5,linear_algebra,15,5,orthogonal_complement_example,orthogonal,,eval
+la_p15_s6,linear_algebra,15,6,orthogonal_complement_theorem,orthogonal,,eval
+la_p16_s1,linear_algebra,16,1,orthogonal_projections_definition,orthogonal,,train
+la_p16_s2,linear_algebra,16,2,orthogonal_projections_theorem,orthogonal,,train
+la_p16_s3,linear_algebra,16,3,orthogonal_projections_theorem,orthogonal,,train
+la_p16_s4,linear_algebra,16,4,adjoint_operator,adjoint_operator,"normal_operator, self_adjoint_operator, unitary_operator",train
+la_p16_s5,linear_algebra,16,5,adjoint_operator,adjoint_operator,"normal_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s1,linear_algebra,17,1,normal_operator_definition,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s2,linear_algebra,17,2,normal_operator_and_basis,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s3,linear_algebra,17,3,normal_operator_properties,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s4,linear_algebra,17,4,normal_operator_theorems,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s5,linear_algebra,17,5,normal_operator_definition,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",eval
+la_p17_s6,linear_algebra,17,6,normal_operator_theorems,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p17_s7,linear_algebra,17,7,normal_operator_theorems,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",eval
+la_p18_s1,linear_algebra,18,1,normal_orthogonal_projection,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",eval
+la_p18_s2,linear_algebra,18,2,normal_orthogonal_projection,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p18_s3,linear_algebra,18,3,normal_operator_and_basis,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",eval
+la_p18_s4,linear_algebra,18,4,normal_operator_examples,normal_operator,"adjoint_operator, self_adjoint_operator, unitary_operator",train
+la_p18_s5,linear_algebra,18,5,self_adjoint_operator,self_adjoint_operator,"normal_operator, adjoint_operator, unitary_operator",train
+la_p18_s6,linear_algebra,18,6,self_adjoint_operator,self_adjoint_operator,"normal_operator, adjoint_operator, unitary_operator",eval
+la_p18_s7,linear_algebra,18,7,symmetric_matrix,symmetrix_matrix,,train
+la_p18_s8,linear_algebra,18,8,self_adjoint_operator_and_basis,self_adjoint_operator,"normal_operator, adjoint_operator, unitary_operator",eval
+la_p19_s1,linear_algebra,19,1,unitary_operator_eigenvalue,unitary_operator,"normal_operator, self_adjoint_operator, adjoint_operator",train
+la_p19_s2,linear_algebra,19,2,unitary_operator,unitary_operator,"normal_operator, self_adjoint_operator, adjoint_operator",train
+la_p19_s3,linear_algebra,19,3,unitary_operator_and_basis,unitary_operator,"normal_operator, self_adjoint_operator, adjoint_operator",eval
+la_p19_s4,linear_algebra,19,4,unitary_operator_and_basis,unitary_operator,"normal_operator, self_adjoint_operator, adjoint_operator",train
