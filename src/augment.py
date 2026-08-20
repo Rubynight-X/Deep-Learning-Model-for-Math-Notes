@@ -72,10 +72,10 @@ def find_section_file(section_dir: Path, section_id: str) -> Path:
 
 
 def read_section_ids(metadata_path: Path) -> list:
-    """Read section IDs from a metadata file."""
+    """Read training section IDs from a metadata file."""
     with open(metadata_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        return [row['section_id'] for row in reader if row.get('section_id')]
+        return [row['section_id'] for row in reader if row.get('section_id') and row['set'] == 'train']
 
 
 def generate_variants_for_one(section_id:str, section_dir: Path, output_dir: Path, augmenter: Augmentation, n_variants: int) -> list:
