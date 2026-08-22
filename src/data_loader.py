@@ -80,6 +80,7 @@ class PairDataset(Dataset):
         base_count = len(self.include)
         cap_negative = base_count * negative_cap_multiplier
         cap_positive = base_count * positive_cap_multiplier
+        
         if len(self.plain_negatives) > cap_negative:
             sampled_negative = random.sample(self.plain_negatives, cap_negative)
         else:
