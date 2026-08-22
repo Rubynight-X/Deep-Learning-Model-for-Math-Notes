@@ -3,7 +3,7 @@ import torch
 import random
 from pathlib import Path
 from PIL import Image
-from torchvision import resnet18, ResNet18_Weights
+from torchvision.models import resnet18, ResNet18_Weights
 from data_loader import image_transform
 from torch.utils.data import Dataset, DataLoader
 
@@ -66,7 +66,7 @@ class CachedPairDataset(Dataset):
         self.cache = torch.load(cache_path, weights_only=True)
 
         pairs_by_type = {}
-        with open(pairs_csv, newline='', encoding='uft-8') as f:
+        with open(pairs_csv, newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 pair_type = row['pair_type']
@@ -114,7 +114,7 @@ class CachedPairDataset(Dataset):
         feature1 = self.cache[row['img1']]
         feature2 = self.cache[row['img2']]
         weight = WEIGHT_MAP[row['pair_type']]
-        return feature1, feature2, torch.tense(weight, dtype=torch.float32)
+        return feature1, feature2, torch.tensor(weight, dtype=torch.float32)
 
 
 batch_size = 32

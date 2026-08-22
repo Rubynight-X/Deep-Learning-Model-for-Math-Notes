@@ -14,10 +14,6 @@ class EmbeddingHead(nn.Module):
         embedding = nn.functional.normalize(embedding, p=2, dim=1)
         return embedding
 
-    def train(self, mode=True):
-        super().train(mode)
-        self.backbone.eval()
-        return self
 
 
 LEARNING_RATE = 1e-3
