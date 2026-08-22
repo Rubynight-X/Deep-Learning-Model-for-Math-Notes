@@ -3,6 +3,9 @@ data/raw/
 data/sections/
 data/augmented/
 data/embeddings/
+data/features_cache.pt
+cached/
+slow/
 __pycache__/
 *.pyc
 .DS_Store
