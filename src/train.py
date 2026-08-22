@@ -78,8 +78,8 @@ def train(experiment=EXPERIMENT):
         dataset = data_loader.PairDataset(augmentation_only=False, no_soft_positive=True)
     else:
         dataset = data_loader.PairDataset(augmentation_only=False, no_soft_positive=False)
-    loader = data_loader.build_dataloader(dataset)
     dataset.resample()
+    loader = data_loader.build_dataloader(dataset)
     print(f'Pairs after exclusion: {len(dataset)}')
     print(f'Batches per epoch: {len(loader)}')
     print()
