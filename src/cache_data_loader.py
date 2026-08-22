@@ -16,7 +16,7 @@ CACHE_PATH = DATA_DIR / 'features_cache.pt'
 
 def cache_features():
     paths = set()
-    with open (PAIRS_CSV, newline='', encoding='uft-8') as f:
+    with open (PAIRS_CSV, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             paths.add(row['img1'])

@@ -21,7 +21,7 @@ NUM_EPOCHS = 30
 MARGIN = 1.0
 EMBEDDING_DIM = 128
 
-EXPERIMENT = 'A'
+EXPERIMENT = 'B_no_soft'
 EXPERIMENT_CONFIGS = {
     'A': {
         'type': 'augmentation_only',
@@ -69,9 +69,10 @@ def train(experiment=EXPERIMENT):
     print()
 
 
-    checkpoint_dir = Path("checkpoints") / f"experiment_{experiment}"
+    base_dir = Path(__file__).parent / '..'
+    checkpoint_dir = base_dir / 'cached' / 'checkpoints_cached' / f'experiment_{experiment}'
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    log_dir = Path("logs")
+    log_dir = base_dir / 'cached' / 'logs_cached'
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / f'experiment_{experiment}.csv'
     with open(log_path, 'w') as f:
@@ -133,8 +134,6 @@ def train(experiment=EXPERIMENT):
 
     torch.save(model.state_dict(), checkpoint_dir / 'final.pt')
     print(f"\nDone. Best loss: {best_loss:.4f}")
-    print(f'    Checkpoints: {checkpoint_dir}')
-    print(f'    Training log: {log_path}')
 
 
 if __name__ == '__main__':
