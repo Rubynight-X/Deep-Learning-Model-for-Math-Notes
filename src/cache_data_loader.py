@@ -21,6 +21,9 @@ def cache_features():
         for row in reader:
             paths.add(row['img1'])
             paths.add(row['img2'])
+    sections_dir = DATA_DIR / 'sections'
+    for image in sections_dir.glob('*.jpg'):
+        paths.add(f'sections/{image.name}')
     print(f'Unique images to cache: {len(paths)}')
 
 
