@@ -9,7 +9,7 @@ CACHE_PATH = DATA_DIR / 'features_cache.pt'
 METADATA_PATH = DATA_DIR / 'pairs' / 'metadata.csv'
 EMBEDDINGS_DIR = DATA_DIR / 'embeddings'
 
-EXPERIMENT = 'B_no_soft'
+EXPERIMENT = 'A'
 
 
 def generate_embeddings(check_point_path: Path, experiment_name: str):
@@ -27,7 +27,7 @@ def generate_embeddings(check_point_path: Path, experiment_name: str):
             section_id = Path(path).stem
             embeddings[section_id] = emb
 
-    save_path = EMBEDDINGS_DIR / f'embeddings_{experiment_name}.pt'
+    save_path = EMBEDDINGS_DIR / f'embeddings_{experiment_name}_reduced_cap.pt'
     torch.save(embeddings, save_path)
     print(f'Saved {len(embeddings)} embeddings to {save_path}')
     return embeddings
@@ -47,7 +47,7 @@ def evaluate(embeddings: dict, metadata: dict, k_values=(1, 3, 5)):
     train_embs = []
     eval_ids = []
     eval_embs = []
-    results_path = BASE_DIR / 'cached' / 'logs_cached' / f'eval_{experiment}.txt'
+    results_path = BASE_DIR / 'cached' / 'logs_cached' / f'eval_{experiment}_reduced_cap.txt'
     f = open(results_path, 'w')
 
     def log(text=''):
@@ -135,7 +135,7 @@ def evaluate(embeddings: dict, metadata: dict, k_values=(1, 3, 5)):
 
 if __name__ == '__main__':
     experiment = EXPERIMENT
-    checkpoint = BASE_DIR / 'cached' / 'checkpoints_cached' / f'experiment_{experiment}' / 'best.pt'
+    checkpoint = BASE_DIR / 'cached' / 'checkpoints_cached' / f'experiment_{experiment}_reduced_cap' / 'best.pt'
 
     print(f'Evaluating experiment {experiment}')
     print()

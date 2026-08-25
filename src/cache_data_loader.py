@@ -57,8 +57,8 @@ WEIGHT_MAP = {
     'plain_negative': 0.0
 }
 
-negative_cap_multiplier = 5
-positive_cap_multiplier = 3
+negative_cap_multiplier = 1
+positive_cap_multiplier = 1
 
 
 class CachedPairDataset(Dataset):

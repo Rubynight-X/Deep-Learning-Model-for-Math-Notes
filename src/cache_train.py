@@ -17,11 +17,11 @@ class EmbeddingHead(nn.Module):
 
 
 LEARNING_RATE = 1e-3
-NUM_EPOCHS = 30
+NUM_EPOCHS = 60
 MARGIN = 1.0
 EMBEDDING_DIM = 128
 
-EXPERIMENT = 'B_no_soft'
+EXPERIMENT = 'A'
 EXPERIMENT_CONFIGS = {
     'A': {
         'type': 'augmentation_only',
@@ -70,11 +70,11 @@ def train(experiment=EXPERIMENT):
 
 
     base_dir = Path(__file__).parent / '..'
-    checkpoint_dir = base_dir / 'cached' / 'checkpoints_cached' / f'experiment_{experiment}'
+    checkpoint_dir = base_dir / 'cached' / 'checkpoints_cached' / f'experiment_{experiment}_reduced_cap'
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     log_dir = base_dir / 'cached' / 'logs_cached'
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_path = log_dir / f'experiment_{experiment}.csv'
+    log_path = log_dir / f'experiment_{experiment}_reduced_cap.csv'
     with open(log_path, 'w') as f:
         f.write('epoch,avg_loss,avg_pos_dist,avg_neg_dist,elapsed_time\n')
 

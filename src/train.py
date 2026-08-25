@@ -31,7 +31,7 @@ class MathEmbeddingModel(nn.Module):
 
 
 LEARNING_RATE = 1e-3
-NUM_EPOCHS = 30
+NUM_EPOCHS = 60
 MARGIN = 1.0
 EMBEDDING_DIM = 128
 
