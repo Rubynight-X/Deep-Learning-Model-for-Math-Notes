@@ -110,11 +110,11 @@ def train(experiment=EXPERIMENT):
 
 
     base_dir = Path(__file__).parent / '..'
-    checkpoint_dir = base_dir / 'slow' / 'checkpoints_slow' / f"experiment_{experiment}"
+    checkpoint_dir = base_dir / 'slow' / 'checkpoints_slow' / f"experiment_{experiment}_reduced_cap"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     log_dir = base_dir / 'slow' / 'logs_slow'
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_path = log_dir / f'experiment_{experiment}.csv'
+    log_path = log_dir / f'experiment_{experiment}_reduced_cap.csv'
     with open(log_path, 'w') as f:
         f.write('epoch,avg_loss,avg_pos_dist,avg_neg_dist,elapsed_time\n')
 

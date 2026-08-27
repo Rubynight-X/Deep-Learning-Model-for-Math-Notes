@@ -18,8 +18,8 @@ WEIGHT_MAP = {
     'plain_negative': 0.0
 }
 
-negative_cap_multiplier = 1
-positive_cap_multiplier = 1
+negative_cap_multiplier = 3
+positive_cap_multiplier = 3
 
 
 def pad_to_square(image: Image.Image, size: int = 224) -> Image.Image:

@@ -1,46 +1,36 @@
-import torch
 import csv
-from pathlib import Path 
-from train import MathEmbeddingModel
-from PIL import Image
-from data_loader import image_transform
+import numpy as np
+import torch
+from PIL import Image, ImageOps
+from pathlib import Path
+from skimage.feature import hog
+from data_loader import pad_to_square
 
 BASE_DIR = Path(__file__).parent / '..'
 DATA_DIR = BASE_DIR / 'data'
-#CACHE_PATH = DATA_DIR / 'features_cache.pt'
 METADATA_PATH = DATA_DIR / 'pairs' / 'metadata.csv'
-EMBEDDINGS_DIR = DATA_DIR / 'embeddings'
-
-EXPERIMENT = 'C'
 
 
-def generate_embeddings(check_point_path: Path, experiment_name: str):
-    #cache = torch.load(CACHE_PATH, weights_only=True, map_location='cpu')
-    model = MathEmbeddingModel(embedding_dim=128, unfreeze_layer4=True)
-    model.load_state_dict(torch.load(check_point_path, weights_only=True, map_location='cpu'))
-    model.eval()
+def compute_hog(image: Image.Image) -> np.ndarray:
+    """Compute HOG descriptor from a PIL image."""
+    img = pad_to_square(image)
+    img_gray = np.array(img.convert('L'))
 
-    metadata = load_metadata()
-    embeddings = {}
-    # with torch.no_grad():
-    #     for path, features in cache.items():
-    #         if 'augmented' in path:
-    #             continue
-    #         emb = model(features.unsqueeze(0)).squeeze(0)
-    #         section_id = Path(path).stem
-    #         embeddings[section_id] = emb
-    with torch.no_grad():
-        for section_id, content in metadata.items():
-            image_path = DATA_DIR / 'sections' / f'{section_id}.jpg'
-            image = Image.open(image_path)
-            tensor = image_transform(image).unsqueeze(0)
-            emb = model(tensor).squeeze(0)
-            embeddings[section_id] = emb
+    descriptor = hog(
+        img_gray,
+        orientations=9,
+        pixels_per_cell=(16, 16),
+        cells_per_block=(2, 2),
+        block_norm='L2-Hys',
+        feature_vector=True
+    )
 
-    save_path = EMBEDDINGS_DIR / f'embeddings_{experiment_name}_reduced_cap.pt'
-    torch.save(embeddings, save_path)
-    print(f'Saved {len(embeddings)} embeddings to {save_path}')
-    return embeddings
+    # L2 normalize for cosine similarity via Euclidean distance
+    norm = np.linalg.norm(descriptor)
+    if norm > 0:
+        descriptor = descriptor / norm
+
+    return descriptor
 
 
 def load_metadata():
@@ -52,26 +42,43 @@ def load_metadata():
     return metadata
 
 
-def evaluate(embeddings: dict, metadata: dict, experiment: str, k_values=(1, 3, 5)):
+def generate_hog_embeddings(metadata):
+    """Compute HOG descriptors for all sections."""
+    embeddings = {}
+    for section_id in sorted(metadata.keys()):
+        img_path = DATA_DIR / 'sections' / f'{section_id}.jpg'
+        image = Image.open(img_path)
+        descriptor = compute_hog(image)
+        embeddings[section_id] = torch.tensor(descriptor, dtype=torch.float32)
+
+    print(f"Computed HOG descriptors for {len(embeddings)} sections")
+    print(f"Descriptor dimension: {list(embeddings.values())[0].shape[0]}")
+    return embeddings
+
+
+def evaluate(embeddings: dict, metadata: dict, k_values=(1, 3, 5)):
     train_ids = []
     train_embs = []
     eval_ids = []
     eval_embs = []
-    results_path = BASE_DIR / 'slow' / 'logs_slow' / f'eval_{experiment}_reduced_cap_epoch_20.txt'
+
+    results_path = BASE_DIR / 'slow' / 'logs_slow' / 'eval_HOG.txt'
+    results_path.parent.mkdir(parents=True, exist_ok=True)
     f = open(results_path, 'w')
 
     def log(text=''):
         print(text)
         f.write(text + '\n')
 
-    for sectiond_id, emb in embeddings.items():
-        split = metadata[sectiond_id]['set']
+    for section_id, emb in embeddings.items():
+        split = metadata[section_id]['set']
         if split == 'train':
-            train_ids.append(sectiond_id)
+            train_ids.append(section_id)
             train_embs.append(emb)
         elif split == 'eval':
-            eval_ids.append(sectiond_id)
+            eval_ids.append(section_id)
             eval_embs.append(emb)
+
     log(f'Train sections: {len(train_ids)}')
     log(f'Eval sections: {len(eval_ids)}')
     log()
@@ -80,9 +87,10 @@ def evaluate(embeddings: dict, metadata: dict, experiment: str, k_values=(1, 3, 
     max_k = max(k_values)
 
     all_results = []
-    for i, (query_id, query_emb) in enumerate(zip(eval_ids, eval_embs)):
+    for query_id, query_emb in zip(eval_ids, eval_embs):
         query_topic = metadata[query_id]['topic']
         query_cluster = metadata[query_id]['cluster']
+
         distance = (train_matrix - query_emb.unsqueeze(0)).pow(2).sum(dim=1).sqrt()
         topk_indices = torch.argsort(distance)[:max_k]
 
@@ -129,27 +137,24 @@ def evaluate(embeddings: dict, metadata: dict, experiment: str, k_values=(1, 3, 
         topic_hit_rate = topic_match / len(all_results)
         cluster_hit_rate = cluster_match / len(all_results)
         log(f'  precision@{k}  topic_precision: {topic_precision: .3f}  topic_hit_rate: {topic_hit_rate: .3f}  cluster_precision: {cluster_precision: .3f}  cluster_hit_rate: {cluster_hit_rate: .3f}')
-        
+
     log()
     log('per-query retrieval results (top-{})'.format(max_k))
     for result in all_results:
         q = result
-        log(f'\nQuery: {q['query_id']}  topic: {q['query_topic']}  cluster: {q['query_cluster']}')
+        log(f"\nQuery: {q['query_id']}  topic: {q['query_topic']}  cluster: {q['query_cluster']}")
         for i, j in enumerate(q['retrieved']):
             match_flag = 'topic' if j['topic_match'] else ('cluster' if j['cluster_match'] else '')
-            log(f'  {i+1}. {j['section_id']:12s}  topic: {j['topic']:30s}  dist: {j['distance']:.3f}  {match_flag}')
- 
+            log(f"  {i+1}. {j['section_id']:12s}  topic: {j['topic']:30s}  dist: {j['distance']:.3f}  {match_flag}")
+
     f.close()
+    print(f"\nSaved to {results_path}")
     return all_results
 
 
 if __name__ == '__main__':
-    experiment = EXPERIMENT
-    checkpoint = BASE_DIR / 'slow' / 'checkpoints_slow' / f'experiment_{experiment}_reduced_cap' / 'epoch_20.pt'
-
-    print(f'Evaluating experiment {experiment}')
+    print("HOG Baseline Evaluation")
     print()
-
-    embeddings = generate_embeddings(checkpoint, experiment)
     metadata = load_metadata()
-    evaluate(embeddings, metadata, experiment)
+    embeddings = generate_hog_embeddings(metadata)
+    evaluate(embeddings, metadata)
