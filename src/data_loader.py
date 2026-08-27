@@ -113,7 +113,7 @@ class PairDataset(Dataset):
 
 
 batch_size = 32
-num_workers = 0
+num_workers = 2
 shuffle = True
 persistent_workers = False
 

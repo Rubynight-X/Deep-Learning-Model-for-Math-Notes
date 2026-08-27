@@ -6,14 +6,18 @@ from torchvision.models import resnet18, ResNet18_Weights
 from pathlib import Path
 
 class MathEmbeddingModel(nn.Module):
-    def __init__(self, embedding_dim):
+    def __init__(self, embedding_dim, unfreeze_layer4=False):
         super().__init__()
 
         self.backbone = resnet18(weights=ResNet18_Weights.DEFAULT)
         self.backbone.fc = nn.Identity()
+        self.unfreeze_layer4 = unfreeze_layer4
 
         for param in self.backbone.parameters():
             param.requires_grad = False
+        if self.unfreeze_layer4:
+            for param in self.backbone.layer4.parameters():
+                param.requires_grad = True
 
         self.embedding_head = nn.Linear(512, embedding_dim)
 
@@ -25,29 +29,43 @@ class MathEmbeddingModel(nn.Module):
 
     def train(self, mode=True):
         super().train(mode)
-        self.backbone.eval()
+        self.backbone.conv1.eval()
+        self.backbone.bn1.eval()
+        self.backbone.layer1.eval()
+        self.backbone.layer2.eval()
+        self.backbone.layer3.eval()
+        if not self.unfreeze_layer4:
+            self.bone.layer4.eval()
         return self
 
 
-
-LEARNING_RATE = 1e-3
-NUM_EPOCHS = 60
+BACKBONE_LEARNING_RATE = 1e-4
+HEAD_LEARNING_RATE = 1e-3
+NUM_EPOCHS = 30
 MARGIN = 1.0
 EMBEDDING_DIM = 128
 
-EXPERIMENT = 'A'
+EXPERIMENT = 'C'
 EXPERIMENT_CONFIGS = {
     'A': {
         'type': 'augmentation_only',
+        'unfreeze': False,
         'description': 'Baseline - augmentation + plain negatives'
     },
-     "B": {
+     'B': {
         'type': 'all_pairs',
-        "description": "All pairs — augmentation + plain negatives + semantic",
+        'unfreeze': False,
+        'description': 'All pairs — augmentation + plain negatives + semantic'
     },
-    "B_no_soft": {
+    'B_no_soft': {
         'type': 'no_soft_positive',
-        "description": "All pairs except soft_positive",
+        'unfreeze': False,
+        'description': 'All pairs except soft_positive'
+    },
+    'C': {
+        'type': 'all_pairs',
+        'unfreeze': True,
+        'description': 'All pairs + unfrozen layer4'
     }
 }
 
@@ -67,10 +85,16 @@ def train(experiment=EXPERIMENT):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f'Device: {device}')
     
-    model = MathEmbeddingModel(embedding_dim=EMBEDDING_DIM).to(device)
+    model = MathEmbeddingModel(embedding_dim=EMBEDDING_DIM, unfreeze_layer4=config['unfreeze']).to(device)
 
-    trainable_params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.Adam(trainable_params, lr=LEARNING_RATE)
+    if config['unfreeze']:
+        optimizer = torch.optim.Adam([
+            {'params': model.backbone.layer4.parameters(), 'lr': BACKBONE_LEARNING_RATE},
+            {'params': model.embedding_head.parameters(), 'lr': HEAD_LEARNING_RATE}
+        ])
+    else:
+        trainable_params = [p for p in model.parameters() if p.requires_grad]
+        optimizer = torch.optim.Adam(trainable_params, lr=HEAD_LEARNING_RATE)
 
     if config['type'] == 'augmentation_only':
         dataset = data_loader.PairDataset(augmentation_only=True, no_soft_positive=False)
@@ -85,9 +109,10 @@ def train(experiment=EXPERIMENT):
     print()
 
 
-    checkpoint_dir = Path("checkpoints") / f"experiment_{experiment}"
+    base_dir = Path(__file__).parent / '..'
+    checkpoint_dir = base_dir / 'slow' / 'checkpoints_slow' / f"experiment_{experiment}"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    log_dir = Path("logs")
+    log_dir = base_dir / 'slow' / 'logs_slow'
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / f'experiment_{experiment}.csv'
     with open(log_path, 'w') as f:
