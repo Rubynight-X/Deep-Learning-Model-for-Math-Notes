@@ -2,12 +2,13 @@ import torch
 import csv
 from pathlib import Path 
 from train import MathEmbeddingModel
+from cache_train import EmbeddingHead
 from PIL import Image
 from data_loader import image_transform
 
 BASE_DIR = Path(__file__).parent / '..'
 DATA_DIR = BASE_DIR / 'data'
-#CACHE_PATH = DATA_DIR / 'features_cache.pt'
+CACHE_PATH = DATA_DIR / 'features_cache.pt'
 METADATA_PATH = DATA_DIR / 'pairs' / 'metadata.csv'
 EMBEDDINGS_DIR = DATA_DIR / 'embeddings'
 
@@ -15,13 +16,14 @@ EXPERIMENT = 'C'
 
 
 def generate_embeddings(check_point_path: Path, experiment_name: str):
-    #cache = torch.load(CACHE_PATH, weights_only=True, map_location='cpu')
+    # cache = torch.load(CACHE_PATH, weights_only=True, map_location='cpu')
+    # model = EmbeddingHead(embedding_dim=128)
     model = MathEmbeddingModel(embedding_dim=128, unfreeze_layer4=True)
     model.load_state_dict(torch.load(check_point_path, weights_only=True, map_location='cpu'))
     model.eval()
 
     metadata = load_metadata()
-    embeddings = {}
+    # embeddings = {}
     # with torch.no_grad():
     #     for path, features in cache.items():
     #         if 'augmented' in path:
@@ -37,7 +39,7 @@ def generate_embeddings(check_point_path: Path, experiment_name: str):
             emb = model(tensor).squeeze(0)
             embeddings[section_id] = emb
 
-    save_path = EMBEDDINGS_DIR / f'embeddings_{experiment_name}_reduced_cap.pt'
+    save_path = EMBEDDINGS_DIR / f'embeddings_{experiment_name}_raised_weight.pt'
     torch.save(embeddings, save_path)
     print(f'Saved {len(embeddings)} embeddings to {save_path}')
     return embeddings
@@ -57,7 +59,7 @@ def evaluate(embeddings: dict, metadata: dict, experiment: str, k_values=(1, 3, 
     train_embs = []
     eval_ids = []
     eval_embs = []
-    results_path = BASE_DIR / 'slow' / 'logs_slow' / f'eval_{experiment}_reduced_cap_epoch_20.txt'
+    results_path = BASE_DIR / 'slow' / 'logs_slow' / f'eval_{experiment}_raised_weight.txt'
     f = open(results_path, 'w')
 
     def log(text=''):
@@ -145,7 +147,7 @@ def evaluate(embeddings: dict, metadata: dict, experiment: str, k_values=(1, 3, 
 
 if __name__ == '__main__':
     experiment = EXPERIMENT
-    checkpoint = BASE_DIR / 'slow' / 'checkpoints_slow' / f'experiment_{experiment}_reduced_cap' / 'epoch_20.pt'
+    checkpoint = BASE_DIR / 'slow' / 'checkpoints_slow' / f'experiment_{experiment}_raised_weight' / 'best.pt'
 
     print(f'Evaluating experiment {experiment}')
     print()

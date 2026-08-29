@@ -13,13 +13,13 @@ pairs_csv_path = DATA_DIR / 'pairs' / 'all_pairs.csv'
 WEIGHT_MAP = {
     'augmentation_positive': 0.7,
     'topic_positive': 1.0,
-    'soft_positive': 0.5,
+    'soft_positive': 0.7,
     'hard_negative': 0.0,
     'plain_negative': 0.0
 }
 
-negative_cap_multiplier = 3
-positive_cap_multiplier = 3
+negative_cap_multiplier = 1
+positive_cap_multiplier = 1
 
 
 def pad_to_square(image: Image.Image, size: int = 224) -> Image.Image:

@@ -52,7 +52,7 @@ def cache_features():
 WEIGHT_MAP = {
     'augmentation_positive': 0.7,
     'topic_positive': 1.0,
-    'soft_positive': 0.5,
+    'soft_positive': 0.7,
     'hard_negative': 0.0,
     'plain_negative': 0.0
 }
