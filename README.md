@@ -35,7 +35,7 @@ The absolute numbers are low and the eval set is small (one query is worth ~0.03
 ## Quick start
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Rubynight-X/Deep-Learning-Model-for-Math-Notes
 cd mathlens
 pip install torch torchvision opencv-python pillow numpy matplotlib streamlit
 cd src
