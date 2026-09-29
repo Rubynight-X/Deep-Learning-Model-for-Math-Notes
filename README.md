@@ -30,7 +30,7 @@ Retrieval on 35 held-out query sections against 140 training sections. "Hit@k" m
 2. With only 53 topic-positive pairs, the hand-labeled signal was too sparse to reshape that space. It improved family-level retrieval (cluster hit@1 doubled from A to B) at a cost in augmentation invariance.
 3. Fine-tuning gave the best topic retrieval but overfit quickly (epoch 20 beat epoch 30).
 
-The absolute numbers are low and the eval set is small (one query is worth ~0.03), so treat the trends as suggestive. The eval set also served as the validation set, and there is no separate held-out test set. The full report covers the details and limitations.
+The absolute numbers are low and the eval set is small (one query is worth ~0.03), so treat the trends as suggestive.
 
 ## Quick start
 
@@ -71,14 +71,8 @@ src/
 ├── eval_hog.py             # HOG baseline
 ├── loss_visualization.py   # training-curve plots
 └── user_interface.py       # Streamlit demo
-docs/
-└── REPORT.md               # full methodology, experiments, and findings
 ```
 
 ## Scope and limitations
 
 MathLens does **not** understand mathematics. It measures whether learned *visual* features capture useful structure in handwritten notes. Semantic similarity (via OCR or multimodal models) is future work, along with a deeper embedding head, coarser topic labels to increase supervision, and a larger corpus with FAISS search.
-
-## Full report
-
-See [`docs/REPORT.md`](docs/REPORT.md) for the dataset design, loss derivation, experiment configurations, complete results and ablation tables, failure analysis, and limitations.
