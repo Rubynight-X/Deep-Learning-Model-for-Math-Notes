@@ -4,8 +4,9 @@ data/sections/
 data/augmented/
 data/embeddings/
 data/features_cache.pt
-cached/
-slow/
+slow/checkpoints*/
+cached/checkpoints*/
+*.pt
 __pycache__/
 *.pyc
 .DS_Store
